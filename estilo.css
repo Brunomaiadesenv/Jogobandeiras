@@ -1,5 +1,5 @@
 body {
-    background-color: #f0f4f8; /* Fundo suave */
+    background-color: #abc0d4; /* Fundo */
     color: #333; /* Cor do texto */
     font-family: 'Arial', sans-serif; /* Fonte moderna */
 }
@@ -35,7 +35,7 @@ h1 {
 
 #options button:hover {
     background-color: #007bff; /* Cor ao passar o mouse */
-    color: white; /* Cor do texto ao passar o mouse */
+    color: rgb(172, 22, 22); /* Cor do texto ao passar o mouse */
     transform: scale(1.05); /* Aumenta ligeiramente o botão */
 }
 
@@ -46,6 +46,4 @@ h1 {
     transition: background-color 0.3s; /* Transição suave */
 }
 
-.btn-custom:hover {
-    background-color: #218838; /* Cor de fundo ao passar o mouse */
-}
+
