@@ -1,6 +1,8 @@
 let correctCountry;
 let options = [];
 let score = 0;
+let timer;
+const timeLimit = 15; // Tempo limite em segundos
 
 function getCountryNameInPortuguese(country) {
     return country.translations && country.translations.por ? country.translations.por.common : country.name.common;
@@ -37,13 +39,34 @@ function displayQuestion() {
     options.forEach(option => {
         const button = document.createElement('button');
         button.innerText = getCountryNameInPortuguese(option);
-        button.className = 'btn btn-secondary m-2'; // Estilo para os botões de opções
+        button.className = 'btn btn-secondary m-2';
         button.onclick = () => checkAnswer(option);
         optionsDiv.appendChild(button);
     });
+
+    startTimer();
+}
+
+function startTimer() {
+    let timeLeft = timeLimit;
+    const timerDiv = document.getElementById('timer');
+    timerDiv.innerHTML = `Tempo: ${timeLeft} segundos`;
+
+    timer = setInterval(() => {
+        timeLeft--;
+        timerDiv.innerHTML = `Tempo: ${timeLeft} segundos`;
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            document.getElementById('result').innerHTML = `<p>Tempo esgotado! O país correto era: ${getCountryNameInPortuguese(correctCountry)}</p>`;
+            document.getElementById('nextButton').style.display = 'block';
+            document.getElementById('finishButton').style.display = 'block';
+        }
+    }, 1000);
 }
 
 function checkAnswer(selected) {
+    clearInterval(timer); // Para o temporizador
     const resultDiv = document.getElementById('result');
     
     if (selected.name.common === correctCountry.name.common) {
@@ -66,7 +89,8 @@ document.getElementById('nextButton').onclick = () => {
 document.getElementById('finishButton').onclick = () => {
     document.getElementById('nextButton').style.display = 'none';
     document.getElementById('finishButton').style.display = 'none';
-    document.getElementById('score').innerHTML = `<p>Pontuação Final: ${score}</p>`;
+    const playerName = document.getElementById('playerName').value || "Jogador";
+    document.getElementById('score').innerHTML = `<p>${playerName}, sua pontuação final é: ${score}</p>`;
     document.getElementById('score').style.display = 'block'; // Exibe a pontuação final
 };
 
